@@ -5,6 +5,8 @@
  */
 package jktvr19library;
 
+import entity.Reader;
+import entity.Book;
 import java.util.Scanner;
 
 /**
@@ -13,6 +15,7 @@ import java.util.Scanner;
  */
 public class App {
     private Scanner scanner = new Scanner(System.in);
+    private Reader[] readers = new Reader[10];
     
     public void run(){
         System.out.println("---- Библиотека ----");
@@ -41,6 +44,10 @@ public class App {
         switch (task){
             case "1":
                 System.out.println("--Добавить книгу--");
+                Book book = new Book("voina i mir", "L.Tolstoy", 2010);
+                System.out.println("название книги"+book.getName());
+                System.out.println(book.toString());
+                
                 break;
                     }
         switch (task){
@@ -51,11 +58,26 @@ public class App {
         switch (task){
             case "3":
                 System.out.println("--Добавить читателей--");
+                Reader reader = new Reader("Ivanov","Ivan",546033);
+                readers[0] = reader;
+                Reader reader1 = new Reader("Petrov","Petr",595013);
+                readers[1] = reader1;
+                System.out.println("фамилия "+reader.getFistname()+" имя "+reader.getLastname()+" телефон "+reader.getPhone());
+                
+                
                 break;
                     }
         switch (task){
             case "4":
                 System.out.println("--список читателей--");
+                int i = 0;
+                for(Reader r : readers){
+                    if (r != null){
+                        System.out.println(i+1+"."+r.toString());
+                        i++;
+                    }
+                }
+                System.out.println("фамилия "+reader.getFistname()+" имя "+reader.getLastname()+" телефон "+reader.getPhone());
                 break;
                     }
         switch (task){
