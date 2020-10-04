@@ -14,8 +14,9 @@ import java.util.Scanner;
  * @author pupil
  */
 public class App {
-    private Scanner scanner = new Scanner(System.in);
-    private Reader[] readers = new Reader[10];
+    private final Scanner scanner = new Scanner(System.in);
+    private final Reader[] readers = new Reader[10];
+    private final Book[] books = new Book[10];
     
     public void run(){
         System.out.println("---- Библиотека ----");
@@ -47,24 +48,35 @@ public class App {
                 Book book = new Book("voina i mir", "L.Tolstoy", 2010);
                 System.out.println("название книги"+book.getName());
                 System.out.println(book.toString());
-                
+                books[0] = book;
+                Book book1 = new Book("3 sestri", "I Chehov", 2011);
+                books[1] = book1;
+                Book book2 = new Book("Master i Margarita", "M Bulgakov", 2011);
+                books[2] = book2;
                 break;
                     }
         switch (task){
             case "2":
                 System.out.println("--посмотреть список книг--");
+                int i = 0;
+                for(Book b : books){
+                    if (b != null){
+                        System.out.println(i+1+"."+b.toString());
+                        i++;
+                    }
+                }
                 break;
                     }
         switch (task){
             case "3":
                 System.out.println("--Добавить читателей--");
                 Reader reader = new Reader("Ivanov","Ivan",546033);
+                System.out.println("фамилия "+reader.getFistname()+" имя "+reader.getLastname()+" телефон "+reader.getPhone());
+                System.out.println(reader.toString()); 
                 readers[0] = reader;
                 Reader reader1 = new Reader("Petrov","Petr",595013);
                 readers[1] = reader1;
-                System.out.println("фамилия "+reader.getFistname()+" имя "+reader.getLastname()+" телефон "+reader.getPhone());
-                
-                
+                   
                 break;
                     }
         switch (task){
@@ -77,7 +89,7 @@ public class App {
                         i++;
                     }
                 }
-                System.out.println("фамилия "+reader.getFistname()+" имя "+reader.getLastname()+" телефон "+reader.getPhone());
+                
                 break;
                     }
         switch (task){

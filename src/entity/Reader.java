@@ -47,8 +47,10 @@ public class Reader {
         this.phone = phone;
     }
 
+    @Override
     public String toString() {
         return "Reader{" + "fistname=" + fistname + ", lastname=" + lastname + ", phone=" + phone + '}';
     }
     
+
 }
