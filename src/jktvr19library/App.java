@@ -22,6 +22,13 @@ public class App {
     private  Scanner scanner = new Scanner(System.in);
     private  Reader[] readers = new Reader[10];
     private  Book[] books = new Book[10];
+
+    public App() {
+        ReadersStorageManager rsm = new ReadersStorageManager();
+        readers = rsm.loadReadersFromFile();
+    }
+    
+    
     
     public void run(){
         System.out.println("---- Библиотека ----");
