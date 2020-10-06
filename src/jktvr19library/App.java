@@ -5,6 +5,10 @@
  */
 package jktvr19library;
 
+
+
+import tools.BookManager;
+import tools.ReaderManager;
 import entity.Reader;
 import entity.Book;
 import java.util.Scanner;
@@ -14,9 +18,9 @@ import java.util.Scanner;
  * @author pupil
  */
 public class App {
-    private final Scanner scanner = new Scanner(System.in);
-    private final Reader[] readers = new Reader[10];
-    private final Book[] books = new Book[10];
+    private  Scanner scanner = new Scanner(System.in);
+    private  Reader[] readers = new Reader[10];
+    private  Book[] books = new Book[10];
     
     public void run(){
         System.out.println("---- Библиотека ----");
@@ -41,21 +45,24 @@ public class App {
                 System.out.println("-----конец программы------");
                 repeat = false;
                 break;
-                    }
-        switch (task){
+                    
+        
             case "1":
                 System.out.println("--Добавить книгу--");
-                Book book = new Book("voina i mir", "L.Tolstoy", 2010);
-                System.out.println("название книги"+book.getName());
-                System.out.println(book.toString());
-                books[0] = book;
-                Book book1 = new Book("3 sestri", "I Chehov", 2011);
-                books[1] = book1;
-                Book book2 = new Book("Master i Margarita", "M Bulgakov", 2011);
-                books[2] = book2;
+                BookManager bookManager = new BookManager();
+                Book book = bookManager.addBook();
+                
+               
+                
+                for(int s = 0;s < books.length;s++){
+                    if(books[s] == null){
+                        books[s]=book;
+                        break;
+                    }                   
+                }      
                 break;
-                    }
-        switch (task){
+                    
+       
             case "2":
                 System.out.println("--посмотреть список книг--");
                 int i = 0;
@@ -66,38 +73,40 @@ public class App {
                     }
                 }
                 break;
-                    }
-        switch (task){
+                    
+        
             case "3":
                 System.out.println("--Добавить читателей--");
-                Reader reader = new Reader("Ivanov","Ivan",546033);
-                System.out.println("фамилия "+reader.getFistname()+" имя "+reader.getLastname()+" телефон "+reader.getPhone());
-                System.out.println(reader.toString()); 
-                readers[0] = reader;
-                Reader reader1 = new Reader("Petrov","Petr",595013);
-                readers[1] = reader1;
-                   
+                ReaderManager readerManager = new ReaderManager();
+                Reader reader = readerManager.addReader();
+                for(int p = 0;p < readers.length;p++){
+                    if(readers[p] == null){
+                        readers[p]=reader;
+                        break;
+                    }                   
+                }                                                                
                 break;
-                    }
-        switch (task){
+                    
+        
             case "4":
                 System.out.println("--список читателей--");
-                int i = 0;
+                int j = 0;
                 for(Reader r : readers){
                     if (r != null){
-                        System.out.println(i+1+"."+r.toString());
-                        i++;
+                        System.out.println(j+1+"."+r.toString());
+                        j++;
+                        
                     }
                 }
                 
                 break;
-                    }
-        switch (task){
+                    
+        
             case "5":
                 System.out.println("--выдать книгу--");
                 break;
-                    }
-        switch (task){
+                    
+       
             case "6":
                 System.out.println("--вернуть книгу--");
                 break;

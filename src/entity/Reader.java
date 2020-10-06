@@ -12,12 +12,12 @@ package entity;
 public class Reader {
     private String fistname;
     private String lastname;
-    private Integer phone;
+    private String phone;
 
     public Reader() {
     }
 
-    public Reader(String fistname, String lastname, Integer phone) {
+    public Reader(String fistname, String lastname, String phone) {
         this.fistname = fistname;
         this.lastname = lastname;
         this.phone = phone;
@@ -39,11 +39,11 @@ public class Reader {
         this.lastname = lastname;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

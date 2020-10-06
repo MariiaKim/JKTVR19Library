@@ -51,6 +51,10 @@ public class Book {
     public String toString() {
         return "Book{" + "name=" + name + ", author=" + author + ", publishedYear=" + publishedYear + '}';
     }
+
+    public void setLastname(String nextLine) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }
