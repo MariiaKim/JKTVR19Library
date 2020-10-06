@@ -7,6 +7,7 @@ package jktvr19library;
 
 
 
+import tools.ReadersStorageManager;
 import tools.BookManager;
 import tools.ReaderManager;
 import entity.Reader;
@@ -84,7 +85,9 @@ public class App {
                         readers[p]=reader;
                         break;
                     }                   
-                }                                                                
+                }  
+                ReadersStorageManager readersStorageManager = new ReadersStorageManager();
+                readersStorageManager.saveReadersToFile(readers);
                 break;
                     
         
