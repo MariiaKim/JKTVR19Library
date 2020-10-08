@@ -8,13 +8,16 @@ package jktvr19library;
 
 
 
+import tools.UserCardManager;
 import tools.BooksStorageManager;
 import tools.ReadersStorageManager;
 import tools.BookManager;
 import tools.ReaderManager;
 import entity.Reader;
 import entity.Book;
+import entity.History;
 import java.util.Scanner;
+
 
 /**
  *
@@ -24,11 +27,16 @@ public class App {
     private  Scanner scanner = new Scanner(System.in);
     private  Reader[] readers = new Reader[10];
     private  Book[] books = new Book[10];
+    private  History[] histories = new History[10];
+    
 
     public App() {
         ReadersStorageManager rsm = new ReadersStorageManager();
+        BooksStorageManager bsm = new BooksStorageManager();
         readers = rsm.loadReadersFromFile();
+        books = bsm.loadBooksFromFile();
     }
+    
     
     
     
@@ -71,7 +79,7 @@ public class App {
                     }                   
                 }  
               BooksStorageManager booksStorageManager = new BooksStorageManager();
-                booksStorageManager.saveBooksToFile(books);
+              booksStorageManager.saveBooksToFile(books);
                 break;
                     
        
@@ -118,13 +126,19 @@ public class App {
         
             case "5":
                 System.out.println("--выдать книгу--");
+                UserCardManager userCardManager = new UserCardManager();
+                History history = userCardManager.giveBook(books,readers);
+                for(int n = 0;n < histories.length;n++){
+                    if(histories[n] == null){
+                        histories[n]=history;
+                        break;
+                    }
+                }
                 break;
-                    
-       
             case "6":
                 System.out.println("--вернуть книгу--");
                 break;
-                    }
+         }
         }while(repeat);
     }
 }

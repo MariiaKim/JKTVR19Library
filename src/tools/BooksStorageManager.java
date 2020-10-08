@@ -18,7 +18,7 @@ public class BooksStorageManager {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         
-try {
+    try {
             fos = new FileOutputStream(fileName);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(books);
@@ -31,7 +31,7 @@ try {
     }
     public Book[] loadBooksFromFile(){
         Book[] books = null;
-        String fileName = "readers";
+        String fileName = "books";
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try{

@@ -5,6 +5,7 @@
  */
 package tools;
 
+import entity.Book;
 import entity.Reader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 public class ReadersStorageManager {
 
     public void saveReadersToFile(Reader[] readers) {
+        
         String fileName = "readers";
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -55,5 +57,9 @@ public class ReadersStorageManager {
         }
         return readers;
     }
+
+    
+
+  
     
 }
