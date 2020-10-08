@@ -55,6 +55,7 @@ public class App {
         System.out.println("4. список читателей");
         System.out.println("5.выдать книгу");
         System.out.println("6.вернуть книгу");
+        System.out.println("7.список читаемых книг:");
         System.out.println("выбирите задачу: ");
         String task = scanner.nextLine();
         System.out.println("=============================");
@@ -63,15 +64,10 @@ public class App {
                 System.out.println("-----конец программы------");
                 repeat = false;
                 break;
-                    
-        
             case "1":
                 System.out.println("--Добавить книгу--");
                 BookManager bookManager = new BookManager();
                 Book book = bookManager.addBook();
-                
-               
-                
                 for(int s = 0;s < books.length;s++){
                     if(books[s] == null){
                         books[s]=book;
@@ -81,8 +77,6 @@ public class App {
               BooksStorageManager booksStorageManager = new BooksStorageManager();
               booksStorageManager.saveBooksToFile(books);
                 break;
-                    
-       
             case "2":
                 System.out.println("--посмотреть список книг--");
                 int i = 0;
@@ -93,8 +87,6 @@ public class App {
                     }
                 }
                 break;
-                    
-        
             case "3":
                 System.out.println("--Добавить читателей--");
                 ReaderManager readerManager = new ReaderManager();
@@ -108,8 +100,6 @@ public class App {
                 ReadersStorageManager readersStorageManager = new ReadersStorageManager();
                 readersStorageManager.saveReadersToFile(readers);
                 break;
-                    
-        
             case "4":
                 System.out.println("--список читателей--");
                 int j = 0;
@@ -117,13 +107,10 @@ public class App {
                     if (r != null){
                         System.out.println(j+1+"."+r.toString());
                         j++;
-                        
                     }
                 }
                 
                 break;
-                    
-        
             case "5":
                 System.out.println("--выдать книгу--");
                 UserCardManager userCardManager = new UserCardManager();
@@ -138,6 +125,16 @@ public class App {
             case "6":
                 System.out.println("--вернуть книгу--");
                 break;
+                case"7":
+                    System.out.println("список читаемых книг:");
+                    n = 0;
+                for(History h : histories){
+                    if (h != null && h.getReturnDate() == null){
+                        System.out.println(n+1+"."+h.toString());
+                        n++;
+                    }
+                }
+                    
          }
         }while(repeat);
     }
