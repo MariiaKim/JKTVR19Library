@@ -13,15 +13,21 @@ import java.util.Scanner;
 public class UserCardManager  {
 
     public History giveBook(Book[] books,Reader[] readers) {
-        History history = null;
-        System.out.println("4. список читателей");
-        int n=0;
-        for(int i = 0;i < readers.length;i++){
-            if(readers[i] == null){
-                System.out.println(i+1+"."+readers[i].toString());
-                n++;
-            }
+        History history = new History();
+        System.out.println(". список читателей");
+         int t=0;
+         for (Reader r : readers) {
+             if(r != null){
+                System.out.println(t+1+"."+r.toString());
+                t++;
         }
+         }
+//        for(int i = 0;i < readers.length;i++){
+//            if(readers[i] == null){
+//                System.out.println(i+1+"."+readers[i].toString());
+//               // t++;
+//            }
+//        }
         System.out.println("выберите номер читателя");
         Scanner scanner = new Scanner(System.in);
         int readerNumber = scanner.nextInt();
@@ -41,6 +47,9 @@ public class UserCardManager  {
         history.setBook(book);
         history.setReader(reader);
         history.setTakeOnDate(calendar.getTime());
+        
         return history;
     }
-}
+    }
+
+

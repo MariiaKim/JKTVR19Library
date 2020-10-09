@@ -17,6 +17,7 @@ import entity.Reader;
 import entity.Book;
 import entity.History;
 import java.util.Scanner;
+import tools.HistoriesStorageManager;
 
 
 /**
@@ -33,8 +34,10 @@ public class App {
     public App() {
         ReadersStorageManager rsm = new ReadersStorageManager();
         BooksStorageManager bsm = new BooksStorageManager();
+        HistoriesStorageManager hsm = new HistoriesStorageManager();
         readers = rsm.loadReadersFromFile();
         books = bsm.loadBooksFromFile();
+        histories = hsm.loadHistoriesFromFile();
     }
     
     
@@ -115,9 +118,10 @@ public class App {
                 System.out.println("--выдать книгу--");
                 UserCardManager userCardManager = new UserCardManager();
                 History history = userCardManager.giveBook(books,readers);
-                for(int n = 0;n < histories.length;n++){
-                    if(histories[n] == null){
-                        histories[n]=history;
+                
+                for(i = 0;i < histories.length;i++){
+                    if(histories[i] == null){
+                        histories[i]=history;
                         break;
                     }
                 }
@@ -125,17 +129,24 @@ public class App {
             case "6":
                 System.out.println("--вернуть книгу--");
                 break;
+                
                 case"7":
                     System.out.println("список читаемых книг:");
-                    n = 0;
+                    int n = 0;
                 for(History h : histories){
                     if (h != null && h.getReturnDate() == null){
                         System.out.println(n+1+"."+h.toString());
                         n++;
                     }
                 }
-                    
+               HistoriesStorageManager historiesStorageManager = new HistoriesStorageManager();
+              historiesStorageManager.saveHistoriesToFile(histories);
+                  break;  
          }
         }while(repeat);
+    }
+
+    private HistoriesStorageManager newStorageManager() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
