@@ -128,11 +128,18 @@ public class App {
                 break;
             case "6":
                 System.out.println("--вернуть книгу--");
+                int n = 0;
+                for(History h : histories){
+                    if (h != null && h.getReturnDate() == null){
+                        System.out.println(n+1+".книгу\""+h.getBook().getName()+"\"читает"+h.getReader().getFistname()+" "+h.getReader().getLastname());
+                        n++;
+                    }
+                }
                 break;
                 
                 case"7":
                     System.out.println("список читаемых книг:");
-                    int n = 0;
+                     n = 0;
                 for(History h : histories){
                     if (h != null && h.getReturnDate() == null){
                         System.out.println(n+1+"."+h.toString());
