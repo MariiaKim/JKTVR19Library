@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package tools.creaters;
 
 import entity.Book;
@@ -8,48 +12,71 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Melnikov
+ */
+public class UserCardManager {
+    private Scanner scanner = new Scanner(System.in);
 
-
-public class UserCardManager  {
-
-    public History giveBook(Book[] books,Reader[] readers) {
-        History history = new History();
-        System.out.println(". список читателей");
-         int t=0;
-         for (Reader r : readers) {
-             if(r != null){
-                System.out.println(t+1+"."+r.toString());
-                t++;
+    public History giveBook(Book[] books, Reader[] readers) {
+//        History history = new History();
+        System.out.println("--- Список читателей ---");
+        int n = 0;
+        for (Reader r : readers) {
+            if(r != null){
+                System.out.println(n+1+". "+r.toString());
+                n++;
+            }
         }
-         }
-//        for(int i = 0;i < readers.length;i++){
-//            if(readers[i] == null){
-//                System.out.println(i+1+"."+readers[i].toString());
-//               // t++;
-//            }
-//        }
-        System.out.println("выберите номер читателя");
-        Scanner scanner = new Scanner(System.in);
+        System.out.print("Выберите номер читателя: ");    
         int readerNumber = scanner.nextInt();
+        scanner.nextLine();
         Reader reader = readers[readerNumber - 1];
-        System.out.println("===список книг====");
-         int i = 0;
-                for(Book b : books){
-                    if (b != null){
-                        System.out.println(i+1+"."+b.toString());
-                        i++;
-                    }
-                }
-        System.out.println("выберите номер книги");
-        int bookNumber = scanner.nextInt();
-        Book book = books[bookNumber -1];
-        Calendar calendar = new GregorianCalendar();
-        history.setBook(book);
-        history.setReader(reader);
-        history.setTakeOnDate(calendar.getTime());
-        
-        return history;
-    }
+        System.out.println("--- Список книг ---");
+        n = 0;
+        for (Book b : books) {
+            if(b != null){
+                System.out.println(n+1+". "+b.toString());
+                n++;
+            }
+        }
+         System.out.print("Выберите номер книги: ");    
+         int bookNumber = scanner.nextInt();
+         Book book = books[bookNumber - 1];
+         Calendar calendar = new GregorianCalendar();
+//         history.setBook(book);
+//         history.setReader(reader);
+//         history.setTakeOnDate(calendar.getTime());
+//         History history = new History(book, reader, calendar.getTime(), null);
+//         return history; 
+        return new History(book, reader, calendar.getTime(), null);
     }
 
+    public void returnBook(History[] histories) {
+        System.out.println("Читаемые книги:");
+        boolean notReadBooks = true;
+        for (int i = 0;i<histories.length;i++) {
+            if(histories[i] != null && histories[i].getReturnDate() == null){
+                System.out.printf("%d. Книгу \"%s\" читает %s %s%n"
+                        ,i+1
+                        ,histories[i].getBook().getName()
+                        ,histories[i].getReader().getFistname()
+                        ,histories[i].getReader().getLastname()
+                );
+                notReadBooks = false;
+            }
+        }
+        if(notReadBooks){
+            System.out.println("Читаемых книг нет");
+            return;
+        }
+        System.out.println("Выберите номер возвращаемой книги: ");
+        int historyNumber = scanner.nextInt();
+        histories[historyNumber - 1].setReturnDate(new GregorianCalendar().getTime());
+                    
+    }
 
+   
+    
+}
