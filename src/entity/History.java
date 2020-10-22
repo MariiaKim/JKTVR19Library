@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- *
- * @author pupil
- */
+
 public class History implements Serializable{
     private Book book;
     private Reader reader;
@@ -62,10 +55,12 @@ public class History implements Serializable{
 
     @Override
     public String toString() {
-        return "History{" + "book=" + book + ", reader=" + reader + ", takeOnDate=" + takeOnDate + ", returnDate=" + returnDate + '}';
+        return "History{" 
+                + "book=" + book.getName()
+                + ", reader=" + reader.getFirstname()+" "+reader.getLastname()
+                + ", takeOnDate=" + takeOnDate 
+                + ", returnDate=" + returnDate 
+                + '}';
     }
-
-   
-    
     
 }

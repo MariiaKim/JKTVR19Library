@@ -1,36 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package entity;
 
 import java.io.Serializable;
 
-/**
- *
- * @author pupil
- */
 public class Reader implements Serializable{
-    private String fistname;
+    private String firstname;
     private String lastname;
     private String phone;
+    
 
     public Reader() {
     }
 
-    public Reader(String fistname, String lastname, String phone) {
-        this.fistname = fistname;
+    public Reader(String firstname, String lastname, String phone) {
+        this.firstname = firstname;
         this.lastname = lastname;
         this.phone = phone;
     }
 
-    public String getFistname() {
-        return fistname;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFistname(String fistname) {
-        this.fistname = fistname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {
@@ -51,8 +44,13 @@ public class Reader implements Serializable{
 
     @Override
     public String toString() {
-        return "Reader{" + "fistname=" + fistname + ", lastname=" + lastname + ", phone=" + phone + '}';
+        return "Reader{" 
+                + "firstname=" + firstname 
+                + ", lastname=" + lastname 
+                + ", phone=" + phone 
+                + '}';
     }
-    
 
+   
+    
 }
