@@ -3,8 +3,10 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
 
 
+@Entity
 public class History implements Serializable{
     private Book book;
     private Reader reader;
