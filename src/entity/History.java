@@ -3,14 +3,27 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class History implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToOne
     private Book book;
+    @OneToOne
     private Reader reader;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date takeOnDate;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date returnDate;
 
     public History() {
@@ -63,6 +76,51 @@ public class History implements Serializable{
                 + ", takeOnDate=" + takeOnDate 
                 + ", returnDate=" + returnDate 
                 + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.book);
+        hash = 37 * hash + Objects.hashCode(this.reader);
+        hash = 37 * hash + Objects.hashCode(this.takeOnDate);
+        hash = 37 * hash + Objects.hashCode(this.returnDate);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final History other = (History) obj;
+        if (!Objects.equals(this.book, other.book)) {
+            return false;
+        }
+        if (!Objects.equals(this.reader, other.reader)) {
+            return false;
+        }
+        if (!Objects.equals(this.takeOnDate, other.takeOnDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.returnDate, other.returnDate)) {
+            return false;
+        }
+        return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
 }

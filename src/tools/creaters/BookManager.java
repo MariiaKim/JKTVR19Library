@@ -2,7 +2,13 @@
 package tools.creaters;
 
 import entity.Book;
+import java.util.List;
 import java.util.Scanner;
+import jktvr19library.App;
+import tools.savers.FileManager;
+import tools.savers.StorageManagerInterface;
+
+
 
 public class BookManager {
 
@@ -14,27 +20,35 @@ public class BookManager {
         book.setName(scanner.nextLine());
         System.out.println("Введите автора:");
         book.setAuthor(scanner.nextLine());
-        System.out.println("Введите год издания:");
-        book.setPublishedYear(scanner.nextInt());
+        int numPublishedYear;
+        do{
+            System.out.println("Введите год издания:");
+            String strPublichedYear = scanner.nextLine();
+            try {
+                numPublishedYear = Integer.parseInt(strPublichedYear);
+                break;
+            } catch (Exception e) {
+                System.out.println("Вводите цифры!");
+            }
+        }while(true);
+        book.setPublishedYear(numPublishedYear);
         return book;
     }
 
-    public void addBookToArray(Book book, Book[] books) {
-        for (int i = 0; i < books.length; i++) {
-            if(books[i] == null){
-                books[i] = book;
-                break;
-            }
-        }    
+    public void addBookToArray(Book book, List<Book> listBooks, StorageManagerInterface storageManager) {
+       listBooks.add(book);
+      
+       storageManager.save(listBooks,App.storageFile.BOOKS.toString());
+       
     }
 
-    public boolean printListBooks(Book[] books) {
-        if(books == null || books.length < 1){
+    public boolean printListBooks(List<Book> listBooks) {
+        if(listBooks == null || listBooks.size() < 1){
             System.out.println("Книг нет!");
             return false;
         }
         int j = 0;
-        for (Book b : books) {
+        for (Book b : listBooks) {
             if(b != null){
                 System.out.println(j+1+". "+b.toString());
                 j++;
@@ -44,4 +58,3 @@ public class BookManager {
     }
     
 }
-

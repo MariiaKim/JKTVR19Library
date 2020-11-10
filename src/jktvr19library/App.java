@@ -4,63 +4,65 @@ package jktvr19library;
 
 
 
-import tools.savers.ReadersStorageManager;
-import tools.creaters.ReaderManager;
+
 import entity.Reader;
 import entity.Book;
 import entity.History;
 import entity.User;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 import security.SecureManager;
-import tools.creaters.BookManager;
-import tools.savers.BooksStorageManager;
-import tools.savers.HistoriesStorageManager;
-import tools.creaters.UserCardManager;
-import tools.savers.UsersStorageManager;
+import tools.savers.BaseManager;
+
+import tools.savers.FileManager;
+import tools.savers.StorageManagerInterface;
+
 import ui.UserInterface;
 
 
-
 public class App {
-    private Reader[] readers = new Reader[10];
-    private Book[] books = new Book[10];
-    private History[] histories = new History[10];
-    private User[] users = new User[10];
-    private ReadersStorageManager readersStorageManager = new ReadersStorageManager();
-    private BooksStorageManager booksStorageManager = new BooksStorageManager();
-    private HistoriesStorageManager historiesStorageManager = new HistoriesStorageManager();
-    private UsersStorageManager usersStorageManager = new UsersStorageManager();
+    public static enum storageFile{BOOKS, READERS, USERS, HISTORIES};
+    private List<Reader> listReaders = new ArrayList<>();
+    private List<Book> listBooks = new ArrayList<>();
+    private List<History> listHistories = new ArrayList<>();
+    private List<User> listUsers = new ArrayList<>();
+    
+    //private StorageManagerInterface storageManager = new FileManager();
+    private StorageManagerInterface storageManager = new BaseManager();
+    
     public static User loggedInUser;
+    
     public App() {
-        Reader[] loadedReaders = readersStorageManager.loadReadersFromFile();
+        List<Reader> loadedReaders = storageManager.load(App.storageFile.READERS.toString());
         if(loadedReaders != null){
-            readers = loadedReaders;
+            listReaders = loadedReaders;
         }
-        Book[] loadedBooks = booksStorageManager.loadBooksFromFile();
+        List<Book> loadedBooks = storageManager.load(App.storageFile.BOOKS.toString());
         if(loadedBooks != null){
-            books = loadedBooks;
+            listBooks = loadedBooks;
         }
-        History[] loaderHistories = historiesStorageManager.loadHistoriesFromFile();
+        List<History> loaderHistories = storageManager.load(App.storageFile.HISTORIES.toString());
         if(loaderHistories != null){
-            histories = loaderHistories;
+            listHistories = loaderHistories;
         }
-        User[] loaderUser = usersStorageManager.loadUsersFromFile();
+        List<User> loaderUser = storageManager.load(App.storageFile.USERS.toString());
         if(loaderUser != null){
-            users = loaderUser;
+            listUsers = loaderUser;
         }
     }
+    
     public void run() {
         System.out.println("--- Библиотека ---");
         SecureManager secureManager = new SecureManager();
-        App.loggedInUser = secureManager.checkInLogin(users,readers);
+        App.loggedInUser = secureManager.checkInLogin(listUsers,listReaders,storageManager);
         UserInterface userInterface = new UserInterface();
         
-        if("MANAGER".equals(App.loggedInUser.getRole())){
+        if(SecureManager.role.MANAGER.toString().equals(App.loggedInUser.getRole())){
             //публикуем интерфейс менеджера
-            userInterface.printManagerUI(users, readers, books, histories);
-        }else if("READER".equals(App.loggedInUser.getRole())){
+            userInterface.printManagerUI(listUsers, listReaders, listBooks, listHistories, storageManager);
+        }else if(SecureManager.role.READER.toString().equals(App.loggedInUser.getRole())){
             //публикуем интерфейс читателя
-            userInterface.printReaderUI(users, readers, books, histories);
+            userInterface.printReaderUI(listUsers, listReaders, listBooks, listHistories, storageManager);
         }
     }
 

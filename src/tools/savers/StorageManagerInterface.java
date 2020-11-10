@@ -9,6 +9,10 @@ package tools.savers;
  *
  * @author pupil
  */
+import java.util.List;
+
+
 public interface StorageManagerInterface {
-    
+    public void save(List arrayList, String fileName);
+    public List load(String fileName);
 }

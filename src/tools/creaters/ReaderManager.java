@@ -2,13 +2,16 @@
 package tools.creaters;
 
 import entity.Reader;
+import java.util.List;
 import java.util.Scanner;
+import jktvr19library.App;
+import tools.savers.FileManager;
+import tools.savers.StorageManagerInterface;
 
-import tools.savers.ReadersStorageManager;
 
 
 public class ReaderManager {
-private ReadersStorageManager readersStorageManager = new ReadersStorageManager();
+//private FileManager storageManager = new FileManager();
     public Reader createReader() {
         Reader reader = new Reader();
         System.out.println("--- Зарегистрировать читателя ---");
@@ -22,19 +25,14 @@ private ReadersStorageManager readersStorageManager = new ReadersStorageManager(
         return reader;
     }
 
-    public void addReaderToArray(Reader reader, Reader[] readers) {
-        for (int i = 0; i < readers.length; i++) {
-            if(readers[i] == null){
-                readers[i] = reader;
-                break;
-            }
-        } 
-        readersStorageManager.saveReadersToFile(readers);
+    public void addReaderToArray(Reader reader, List<Reader> listReaders, StorageManagerInterface storageManager) {
+        listReaders.add(reader);
+        storageManager.save(listReaders,App.storageFile.READERS.toString());
     }
 
-    public void printListReaders(Reader[] readers) {
+    public void printListReaders(List<Reader> listReaders) {
         int n = 0;
-        for (Reader r : readers) {
+        for (Reader r : listReaders) {
             if(r != null){
                 System.out.println(n+1+". "+r.toString());
                 n++;

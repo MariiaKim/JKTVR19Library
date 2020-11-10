@@ -3,21 +3,23 @@ package security;
 
 import entity.Reader;
 import entity.User;
+import java.util.List;
 import java.util.Scanner;
+import jktvr19library.App;
 import tools.creaters.ReaderManager;
 import tools.creaters.UserManager;
-import tools.savers.ReadersStorageManager;
-import tools.savers.UsersStorageManager;
+import tools.savers.StorageManagerInterface;
 
 
 public class SecureManager {
 private Scanner scanner = new Scanner(System.in);
 private UserManager userManager = new UserManager();
 private ReaderManager readerManager = new ReaderManager();
-private UsersStorageManager usersStorageManager = new UsersStorageManager();
-private ReadersStorageManager readersStorageManager = new ReadersStorageManager();
+//private FileManager storageManager = new FileManager();
 
-    public User checkInLogin(User[] users, Reader[] readers) {
+public static enum role {READER, MANAGER};
+
+    public User checkInLogin(List<User> listUsers, List<Reader> listReaders,StorageManagerInterface storageManager) {
         do{
             System.out.println("Ваш выбор: ");
             System.out.println("0. Закрыть программу");
@@ -32,13 +34,13 @@ private ReadersStorageManager readersStorageManager = new ReadersStorageManager(
                     break;
                 case "1":
                     User user = userManager.createUser();
-                    userManager.addUserToArray(user, users);
-                    readerManager.addReaderToArray(user.getReader(), readers);
-                    readersStorageManager.saveReadersToFile(readers);
-                    usersStorageManager.saveUsersToFile(users);
+                    userManager.addUserToArray(user, listUsers);
+                    readerManager.addReaderToArray(user.getReader(), listReaders, storageManager);
+                    storageManager.save(listReaders,App.storageFile.READERS.toString());
+                    storageManager.save(listUsers, App.storageFile.USERS.toString());
                     break;
                 case "2":
-                    User checkInUser = userManager.getCheckInUser(users);
+                    User checkInUser = userManager.getCheckInUser(listUsers);
                     if(checkInUser == null) break;
                     return checkInUser;
                 default:
