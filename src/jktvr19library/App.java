@@ -32,7 +32,16 @@ public class App {
     
     public static User loggedInUser;
     
-    public App() {
+    public App(String flag) {
+        String info = "Сохраняем данные в базу";
+        if("base".equals(flag)){
+            this.storageManager = new BaseManager();
+           
+        }else if("file".equals(flag)){
+            this.storageManager = new FileManager();
+            info = "Сохраняем данные в файл";
+        }
+        System.out.print(info);
         List<Reader> loadedReaders = storageManager.load(App.storageFile.READERS.toString());
         if(loadedReaders != null){
             listReaders = loadedReaders;

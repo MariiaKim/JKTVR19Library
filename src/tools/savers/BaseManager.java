@@ -73,17 +73,17 @@ public class BaseManager implements StorageManagerInterface{
             return ListBooks;
         }
         if(App.storageFile.READERS.toString().equals(fileName)){
-            List<Reader> ListReaders = em.createQuery("SELECT b FROM Book b")
+            List<Reader> ListReaders = em.createQuery("SELECT r FROM Reader r")
                     .getResultList();
             return ListReaders;
         }
         if(App.storageFile.USERS.toString().equals(fileName)){
-            List<User> ListUsers = em.createQuery("SELECT b FROM Book b")
+            List<User> ListUsers = em.createQuery("SELECT u FROM User u")
                     .getResultList();
             return ListUsers;
         }
         if(App.storageFile.HISTORIES.toString().equals(fileName)){
-            List<History> ListHistories = em.createQuery("SELECT b FROM Book b")
+            List<History> ListHistories = em.createQuery("SELECT h FROM History h")
                     .getResultList();
             return ListHistories;
         }
