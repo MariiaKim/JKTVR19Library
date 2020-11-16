@@ -23,9 +23,9 @@ import jktvr19library.App;
 
 
 public class BaseManager implements StorageManagerInterface{
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaProject9PU");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
+       private EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaProject9PU");
+       private EntityManager em = emf.createEntityManager();
+       private EntityTransaction tx = em.getTransaction();
 
     @Override
     public void save(List arrayList, String fileName) {
