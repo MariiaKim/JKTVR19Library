@@ -13,28 +13,26 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-/**
- *
- * @author pupil
- */
-public class UserController {
-       private EntityManagerFactory emf = Persistence.createEntityManagerFactory("JavaProject9PU");
-       private EntityManager em = emf.createEntityManager();
-       private EntityTransaction tx = em.getTransaction();
-       public void create(User user){
-           tx.begin();
-           em.persist(user);
-           tx.commit();
-       }
 
-    public List<User> findAll(){
+
+
+public class UserController {
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("JKTVR19LibraryPU");
+    private EntityManager em = emf.createEntityManager();
+    private EntityTransaction tx = em.getTransaction();
+   
+    public void create(User user){
+        tx.begin();
+        em.persist(user);
+        tx.commit();
+    }
+
+    public List<User> findAll() {
         try {
-    return em.createQuery("SELECT u FROM User u").getResultList();
-        }catch (Exception e) {
-            
+            return em.createQuery("SELECT u FROM User u")
+                    .getResultList();
+        } catch (Exception e) {
+            return null;
         }
-           return null;
     }
 }
-         
-        

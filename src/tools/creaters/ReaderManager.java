@@ -3,16 +3,20 @@
 package tools.creaters;
 
 import entity.Reader;
+import entity.facade.ReaderFacade;
+import factory.FacadeFactory;
 import java.util.List;
 import java.util.Scanner;
-import jktvr19library.App;
 import tools.savers.FileManager;
-import tools.savers.StorageManagerInterface;
+
+
 
 
 
 public class ReaderManager {
-//private FileManager storageManager = new FileManager();
+    
+    private ReaderFacade readerFacade = FacadeFactory.getReaderFacade();
+
     public Reader createReader() {
         Reader reader = new Reader();
         System.out.println("--- Зарегистрировать читателя ---");
@@ -23,20 +27,19 @@ public class ReaderManager {
         reader.setLastname(scanner.nextLine());
         System.out.println("Введите телефон:");
         reader.setPhone(scanner.nextLine());
+        readerFacade.create(reader);
         return reader;
     }
 
-    public void addReaderToArray(Reader reader, List<Reader> listReaders, StorageManagerInterface storageManager) {
-        listReaders.add(reader);
-        storageManager.save(listReaders,App.storageFile.READERS.toString());
-    }
-
-    public void printListReaders(List<Reader> listReaders) {
-        int n = 0;
+    public void printListReaders() {
+        List<Reader> listReaders = readerFacade.findAll();
+        if(listReaders == null){
+            System.out.println("Нет читателей");
+            return;
+        }
         for (Reader r : listReaders) {
             if(r != null){
-                System.out.println(n+1+". "+r.toString());
-                n++;
+                System.out.println(r.getId()+". "+r.toString());
             }
         }
     }

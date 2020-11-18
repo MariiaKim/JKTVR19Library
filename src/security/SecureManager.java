@@ -1,15 +1,15 @@
 
 package security;
 
-import entity.Reader;
 import entity.User;
-import entity.controllers.UserController;
-import java.util.List;
+import entity.facade.UserFacade;
+import factory.FacadeFactory;
 import java.util.Scanner;
-import jktvr19library.App;
 import tools.creaters.ReaderManager;
 import tools.creaters.UserManager;
-import tools.savers.StorageManagerInterface;
+
+
+
 
 
 public class SecureManager {
@@ -20,7 +20,7 @@ private ReaderManager readerManager = new ReaderManager();
 
 public static enum role {READER, MANAGER};
 
-    public User checkInLogin(List<User> listUsers, List<Reader> listReaders,StorageManagerInterface storageManager) {
+    public User checkInLogin() {
         do{
             System.out.println("Ваш выбор: ");
             System.out.println("0. Закрыть программу");
@@ -35,9 +35,7 @@ public static enum role {READER, MANAGER};
                     break;
                 case "1":
                     User user = userManager.createUser();
-                    UserController uc = new UserController();
-                    uc.create(user);
-                    
+                    FacadeFactory.getUserFacade().create(user);
                     break;
                 case "2":
                     User checkInUser = userManager.getCheckInUser();

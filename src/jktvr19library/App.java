@@ -9,15 +9,21 @@ import entity.Reader;
 import entity.Book;
 import entity.History;
 import entity.User;
+import factory.ConnectSingleton;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import security.SecureManager;
 import tools.savers.BaseManager;
 
 import tools.savers.FileManager;
-import tools.savers.StorageManagerInterface;
 
 import ui.UserInterface;
+import tools.savers.StorageManagerInterface;
+
+
+
+
 
 
 public class App {
@@ -36,12 +42,12 @@ public class App {
         String info = "Сохраняем данные в базу";
         if("base".equals(flag)){
             this.storageManager = new BaseManager();
-           
+            info = "Сохраняем данные в базу";
         }else if("file".equals(flag)){
             this.storageManager = new FileManager();
             info = "Сохраняем данные в файл";
         }
-//        System.out.print(info);
+//        System.out.println(info);
 //        List<Reader> loadedReaders = storageManager.load(App.storageFile.READERS.toString());
 //        if(loadedReaders != null){
 //            listReaders = loadedReaders;
@@ -61,21 +67,23 @@ public class App {
     }
     
     public void run() {
-        System.out.println("--- Библиотека ---");
-        SecureManager   secureManager = new SecureManager();
-        App.loggedInUser = secureManager.checkInLogin();
-        UserInterface userInterface = new UserInterface();
-        if(App.loggedInUser == null){
-            System.out.println("У вас нет прав доступа");
-            return;
-        }
-        if(SecureManager.role.MANAGER.toString().equals(App.loggedInUser.getRole())){
-            //публикуем интерфейс менеджера
-            userInterface.printManagerUI();
-        }else if(SecureManager.role.READER.toString().equals(App.loggedInUser.getRole())){
-            //публикуем интерфейс читателя
-            userInterface.printReaderUI();
-        }
+      
+            System.out.println("--- Библиотека ---");
+            SecureManager secureManager = new SecureManager();
+            App.loggedInUser = secureManager.checkInLogin();
+            UserInterface userInterface = new UserInterface();
+            if(App.loggedInUser == null){
+                System.out.println("У вас нет прав доступа");
+                return;
+            }
+            if(SecureManager.role.MANAGER.toString().equals(App.loggedInUser.getRole())){
+                //публикуем интерфейс менеджера
+                userInterface.printManagerUI();
+            }else if(SecureManager.role.READER.toString().equals(App.loggedInUser.getRole())){
+                //публикуем интерфейс читателя
+                userInterface.printReaderUI();
+            }
+        
     }
 
 }

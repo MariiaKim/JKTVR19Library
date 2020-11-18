@@ -2,16 +2,17 @@
 package tools.creaters;
 
 import entity.Book;
-import entity.controllers.BookController;
+import entity.facade.BookFacade;
+import factory.FacadeFactory;
 import java.util.List;
 import java.util.Scanner;
-import jktvr19library.App;
-import tools.savers.FileManager;
-import tools.savers.StorageManagerInterface;
+
+
 
 
 
 public class BookManager {
+    private BookFacade bookFacade = FacadeFactory.getBookFacade();
 
     public Book createBook() {
         Book book = new Book();
@@ -33,28 +34,19 @@ public class BookManager {
             }
         }while(true);
         book.setPublishedYear(numPublishedYear);
+        bookFacade.create(book);
         return book;
     }
-
-    public void addBookToArray(Book book, List<Book> listBooks, StorageManagerInterface storageManager) {
-       listBooks.add(book);
-      
-       storageManager.save(listBooks,App.storageFile.BOOKS.toString());
-       
-    }
-
+    
     public boolean printListBooks() {
-        BookController bc = new BookController();
-        List<Book> listBooks = bc.findAll();
+        List<Book> listBooks = bookFacade.findAll();
         if(listBooks == null || listBooks.size() < 1){
             System.out.println("Книг нет!");
             return false;
         }
-        int j = 0;
         for (Book b : listBooks) {
             if(b != null){
-                System.out.println(j+1+". "+b.toString());
-                j++;
+                System.out.println(b.getId()+". "+b.toString());
             }
         }
         return true;
